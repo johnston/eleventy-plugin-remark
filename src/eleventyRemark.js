@@ -1,6 +1,7 @@
 import remark from 'remark';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
+import rehypeRaw from 'rehype-raw';
 
 function requirePlugins(plugins) {
   if (!Array.isArray(plugins)) {
@@ -38,7 +39,7 @@ function requirePlugins(plugins) {
 function eleventyRemark(options) {
   const processor = remark();
   let plugins = requirePlugins(options.plugins);
-  processor.use(plugins).use(remarkRehype).use(rehypeStringify);
+  processor.use(plugins).use(remarkRehype, { allowDangerousHtml: true }).use(rehypeRaw).use(rehypeStringify);
 
   return {
     set: () => {},
